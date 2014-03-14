@@ -42,6 +42,17 @@ http.createServer(function (req, res) {
             res.write(html);
             res.end();
             break;
+        case "/fileList":
+
+            fs.readdir("c:/",function(err,files){
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                var html = getFileListHtml(files);
+                res.write(html);
+                res.end();
+            });
+
+            
+            break;
     	case "/myprof":    		
   			var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
@@ -191,6 +202,34 @@ function getHomePageHtmlCode(){
 
     str += '</div>';
     str += '</body>    ';
+    str += '</html>';
+    return str;
+
+}
+
+function getFileListHtml(data){
+
+    var str = '';
+    str += '<html>';
+    str += '<head>';
+    str += '<script type="text/javascript" src="jquery.js"></script>';    
+    str += '</head>';
+    str += '<body>';    
+    str += '<table id="myTab" border="1">';
+    str += '<tr>';    
+    str += '<th>FileName</th>';
+    str += '</tr>';
+
+    for(var i in data){
+
+        str += '<tr>';    
+        str += '<tr>'+data[i]+'</tr>';
+        str += '</tr>';
+
+    }
+
+    str += '</table>';
+    str += '</body>';
     str += '</html>';
     return str;
 
