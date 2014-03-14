@@ -1,0 +1,27 @@
+#cont{
+
+
+}
+
+.mylink{
+	display: inline-block;
+	text-decoration: none;
+	color: black;
+	background: #EEE;
+	margin: 10px;
+	padding: 20px;
+
+}
+.mylink:hover{
+	background: #BBB;
+}
+
+.title{
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.desc{
+	margin-top: 10px;
+}
