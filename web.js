@@ -71,7 +71,7 @@ http.createServer(function (req, res) {
             var connection = mysqlObj.createConnection({
               host     : 'localhost',
               user     : 'root',
-              password : ''
+              password : 'root'
             });
 
             connection.connect();
