@@ -10,7 +10,21 @@
 	background: #EEE;
 	margin: 10px;
 	padding: 20px;
+	position: relative;
 
+}
+
+.num{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	font-weight: bold;
+	color: red;
+	top: 0px;
+	right:0px;
+	text-align:center;
+	border: 1px solid black;
+	background: #AAA; 
 }
 .mylink:hover{
 	background: #BBB;
