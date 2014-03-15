@@ -1,5 +1,6 @@
 function listener(event){
- document.getElementById("test").innerHTML = "received: "+event.data;
+ 
+ $.get("http://192.168.56.177:1338/addsession?c="+event.data);
 
 }
 
