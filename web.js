@@ -480,6 +480,7 @@ function gettokpage(data){
 var str = "";
 
 var tock = new Buffer("90_"+data).toString('base64');
+console.log(tock);
 
 str += '<html>';
 str += '<head>';
