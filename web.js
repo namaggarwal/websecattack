@@ -62,10 +62,16 @@ http.createServer(function (req, res) {
 
         case "/tableList":
 
-            var connection = mysqlObj.createConnection({
+          /*  var connection = mysqlObj.createConnection({
               host     : 'localhost',
               user     : 'naman',
               password : 'IAMTHEBEST'
+            });*/
+
+            var connection = mysqlObj.createConnection({
+              host     : 'localhost',
+              user     : 'root',
+              password : ''
             });
 
             connection.connect();
