@@ -265,6 +265,9 @@ function getHomePageHtmlCode(){
     str += '</a>';
 
     str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=../../../../.htaccess" class="mylink">';
+    str += '<div class="num">';
+    str += '5';
+    str += '</div>'; 
     str += '<div class="title">';
     str += 'Local File Include';
     str += '</div>';
@@ -274,6 +277,9 @@ function getHomePageHtmlCode(){
     str += '</a>';
 
     str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=http://code.jquery.com/jquery-1.11.0.min.js" class="mylink">';
+    str += '<div class="num">';
+    str += '6';
+    str += '</div>'; 
     str += '<div class="title">';
     str += 'Remote File Include';
     str += '</div>';
