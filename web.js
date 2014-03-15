@@ -217,6 +217,9 @@ function getHomePageHtmlCode(){
     str += '<div id="cont">';
     
     str += '<a href="/getsessionid" class="mylink">';
+    str += '<div class="num">';
+    str += '1';
+    str += '</div>';
     str += '<div class="title">';
     str += 'Session IDs';
     str += '</div>';
@@ -226,6 +229,9 @@ function getHomePageHtmlCode(){
     str += '</a>';
 
     str += '<a href="/fileList" class="mylink">';
+    str += '<div class="num">';
+    str += '2';
+    str += '</div>';    
     str += '<div class="title">';
     str += 'File List';
     str += '</div>';
@@ -235,6 +241,9 @@ function getHomePageHtmlCode(){
     str += '</a>';
 
     str += '<a href="/tableList" class="mylink">';
+    str += '<div class="num">';
+    str += '3';
+    str += '</div>';    
     str += '<div class="title">';
     str += 'Table Select';
     str += '</div>';
@@ -245,6 +254,9 @@ function getHomePageHtmlCode(){
 
 
     str += '<a href="/evilad" class="mylink">';
+    str += '<div class="num">';
+    str += '4';
+    str += '</div>';    
     str += '<div class="title">';
     str += 'Evil Advertisment';
     str += '</div>';
