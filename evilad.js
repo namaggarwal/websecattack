@@ -1,5 +1,6 @@
 function listener(event){
-  document.getElementById("test").innerHTML = "received: "+event.data;
+ document.getElementById("test").innerHTML = "received: "+event.data;
+
 }
 
 if (window.addEventListener){

