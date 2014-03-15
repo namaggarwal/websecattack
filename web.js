@@ -6,8 +6,10 @@ var http = require('http'),
     path = require('path'),
     qs = require('querystring'); 
 
-var evilsite = "localhost:1338";
-var elggsite = "localhost/elgg";
+//var evilsite = "localhost:1338";
+//var elggsite = "localhost/elgg";
+var evilsite = "192.168.56.177:1338";
+var elggsite = "192.168.56.177/elgg";
 
 //Count the number of visits to the page
 var countVisit = 0;
