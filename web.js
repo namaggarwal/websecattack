@@ -50,7 +50,7 @@ http.createServer(function (req, res) {
             break;
         case "/fileList":
 
-            fs.readdir("c:/",function(err,files){
+            fs.readdir("/tmp",function(err,files){
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 var html = getFileListHtml(files);
                 res.write(html);
