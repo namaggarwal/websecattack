@@ -101,7 +101,7 @@ http.createServer(function (req, res) {
                 var hostname = refUrl.hostname+"/elgg";
             }*/
             
-            res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/mallory'});
+            res.writeHead(302,{Location: 'http://'+elggsite+'/pg/profile/sexy123'});
             //res.writeHead(200);
             res.end();
             break;
