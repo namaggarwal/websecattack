@@ -51,7 +51,7 @@ http.createServer(function (req, res) {
             break;
         case "/fileList":
 
-            fs.readdir("/var",function(err,files){
+            fs.readdir("/var/temp",function(err,files){
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 var html = getFileListHtml(files);
                 res.write(html);
@@ -280,7 +280,7 @@ function getHomePageHtmlCode(){
     str += 'File List';
     str += '</div>';
     str += '<div class="desc">';
-    str += 'See File list of /tmp';
+    str += 'See File list of /var/temp';
     str += '</div>';
     str += '</a>';
 
